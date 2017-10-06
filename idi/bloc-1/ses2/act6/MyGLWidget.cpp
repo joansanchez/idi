@@ -78,9 +78,9 @@ void MyGLWidget::carregaTriangle()
   Vertices[2] = glm::vec3(0.0, 0.5, 0.0);
 
   glm::vec3 Colors[3];  // Tres vèrtexs amb X, Y i Z
-Colors[0] = glm::vec3(1.0, 1.0, 1.0);
-Colors[1] = glm::vec3(1.0, 1.0, 1.0);
-Colors[2] = glm::vec3(1.0, 1.0, 1.0);
+Colors[0] = glm::vec3(1.0, 0.0, 0.0);
+Colors[1] = glm::vec3(0.0, 1.0, 0.0);
+Colors[2] = glm::vec3(0.0, 0.0, 1.0);
   // Creació del Vertex Array Object (VAO) que usarem per pintar
   glGenVertexArrays(1, &VAO);
   glBindVertexArray(VAO);

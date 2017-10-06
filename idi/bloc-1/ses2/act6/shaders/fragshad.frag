@@ -5,16 +5,6 @@ in vec3 fragColor;
 out vec4 FragColor;
 
 void main() {
-if(gl_FragCoord .x < 355. && gl_FragCoord .y > 355.){
-    FragColor = vec4((fragColor*vec3(0.0,0.0,1.0)),1);
-}
-else if(gl_FragCoord .x < 355. && gl_FragCoord .y < 355.){
-    FragColor = vec4((fragColor*vec3(1.0,0.0,0.0)),1);
-}
-else if(gl_FragCoord .x > 355. && gl_FragCoord .y > 355.){
-    FragColor = vec4((fragColor*vec3(0.0,1.0,0.0)),1);
-}
-else{
-    FragColor = vec4((fragColor*vec3(1.0,1.0,0.0)),1);
-}
+    FragColor = vec4((fragColor*vec3(1.0,1.0,1.0)),1.0);
+
 }

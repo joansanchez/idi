@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -m64 -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -m64 -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -isystem /usr/include/glm -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtOpenGL -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -isystem /usr/include/libdrm -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64
+INCPATH       = -I. -isystem /usr/include/glm -I../../Model -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtOpenGL -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -isystem /usr/include/libdrm -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64
 QMAKE         = /usr/lib/x86_64-linux-gnu/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -35,7 +35,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = Bloc2_Exemple1.0.0
-DISTDIR = /home/ubupad/Dropbox/uni/tercero/idi/bloc-2/ses1/act1/.tmp/Bloc2_Exemple1.0.0
+DISTDIR = /home/ubupad/Dropbox/uni/tercero/idi/bloc-2/ses2/act2/.tmp/Bloc2_Exemple1.0.0
 LINK          = g++
 LFLAGS        = -m64 -Wl,-O1
 LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lQt5OpenGL -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
@@ -52,11 +52,13 @@ OBJECTS_DIR   = ./
 
 SOURCES       = main.cpp \
 		MyForm.cpp \
-		MyGLWidget.cpp moc_MyForm.cpp \
+		MyGLWidget.cpp \
+		../../Model/model.cpp moc_MyForm.cpp \
 		moc_MyGLWidget.cpp
 OBJECTS       = main.o \
 		MyForm.o \
 		MyGLWidget.o \
+		model.o \
 		moc_MyForm.o \
 		moc_MyGLWidget.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -135,7 +137,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		Bloc2_Exemple.pro MyForm.h \
 		MyGLWidget.h main.cpp \
 		MyForm.cpp \
-		MyGLWidget.cpp
+		MyGLWidget.cpp \
+		../../Model/model.cpp
 QMAKE_TARGET  = Bloc2_Exemple
 DESTDIR       = 
 TARGET        = Bloc2_Exemple
@@ -320,7 +323,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents MyForm.h MyGLWidget.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp MyForm.cpp MyGLWidget.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp MyForm.cpp MyGLWidget.cpp ../../Model/model.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents MyForm.ui $(DISTDIR)/
 
 
@@ -357,15 +360,18 @@ compiler_moc_header_make_all: moc_MyForm.cpp moc_MyGLWidget.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_MyForm.cpp moc_MyGLWidget.cpp
 moc_MyForm.cpp: ui_MyForm.h \
+		MyGLWidget.h \
+		../../Model/model.h \
 		MyForm.h \
 		moc_predefs.h \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/ubupad/Dropbox/uni/tercero/idi/bloc-2/ses1/act1 -I/usr/include/glm -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MyForm.h -o moc_MyForm.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/ubupad/Dropbox/uni/tercero/idi/bloc-2/ses2/act2 -I/usr/include/glm -I/home/ubupad/Dropbox/uni/tercero/idi/bloc-2/Model -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MyForm.h -o moc_MyForm.cpp
 
-moc_MyGLWidget.cpp: MyGLWidget.h \
+moc_MyGLWidget.cpp: ../../Model/model.h \
+		MyGLWidget.h \
 		moc_predefs.h \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/ubupad/Dropbox/uni/tercero/idi/bloc-2/ses1/act1 -I/usr/include/glm -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MyGLWidget.h -o moc_MyGLWidget.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/ubupad/Dropbox/uni/tercero/idi/bloc-2/ses2/act2 -I/usr/include/glm -I/home/ubupad/Dropbox/uni/tercero/idi/bloc-2/Model -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MyGLWidget.h -o moc_MyGLWidget.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -374,7 +380,8 @@ compiler_uic_clean:
 	-$(DEL_FILE) ui_MyForm.h
 ui_MyForm.h: MyForm.ui \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/uic \
-		MyGLWidget.h
+		MyGLWidget.h \
+		../../Model/model.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/uic MyForm.ui -o ui_MyForm.h
 
 compiler_yacc_decl_make_all:
@@ -388,15 +395,23 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 ####### Compile
 
 main.o: main.cpp MyForm.h \
-		ui_MyForm.h
+		ui_MyForm.h \
+		MyGLWidget.h \
+		../../Model/model.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 MyForm.o: MyForm.cpp MyForm.h \
-		ui_MyForm.h
+		ui_MyForm.h \
+		MyGLWidget.h \
+		../../Model/model.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MyForm.o MyForm.cpp
 
-MyGLWidget.o: MyGLWidget.cpp MyGLWidget.h
+MyGLWidget.o: MyGLWidget.cpp MyGLWidget.h \
+		../../Model/model.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MyGLWidget.o MyGLWidget.cpp
+
+model.o: ../../Model/model.cpp ../../Model/model.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o model.o ../../Model/model.cpp
 
 moc_MyForm.o: moc_MyForm.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_MyForm.o moc_MyForm.cpp

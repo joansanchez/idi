@@ -35,7 +35,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = myform1.0.0
-DISTDIR = /home/ubupad/Dropbox/uni/tercero/idi/QT/truncament/.tmp/myform1.0.0
+DISTDIR = /home/ubupad/Dropbox/uni/tercero/idi/QT/qlcdnumber/.tmp/myform1.0.0
 LINK          = g++
 LFLAGS        = -m64 -Wl,-O1
 LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
@@ -52,13 +52,13 @@ OBJECTS_DIR   = ./
 
 SOURCES       = MyForm.cpp \
 		main.cpp \
-		truncament.cpp moc_MyForm.cpp \
-		moc_truncament.cpp
+		disco.cpp moc_MyForm.cpp \
+		moc_disco.cpp
 OBJECTS       = MyForm.o \
 		main.o \
-		truncament.o \
+		disco.o \
 		moc_MyForm.o \
-		moc_truncament.o
+		moc_disco.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -133,9 +133,9 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		myform.pro MyForm.h \
-		truncament.h MyForm.cpp \
+		disco.h MyForm.cpp \
 		main.cpp \
-		truncament.cpp
+		disco.cpp
 QMAKE_TARGET  = myform
 DESTDIR       = 
 TARGET        = myform
@@ -317,8 +317,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents MyForm.h truncament.h $(DISTDIR)/
-	$(COPY_FILE) --parents MyForm.cpp main.cpp truncament.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents MyForm.h disco.h $(DISTDIR)/
+	$(COPY_FILE) --parents MyForm.cpp main.cpp disco.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents widget.ui $(DISTDIR)/
 
 
@@ -351,19 +351,20 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -m64 -pipe -O2 -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_MyForm.cpp moc_truncament.cpp
+compiler_moc_header_make_all: moc_MyForm.cpp moc_disco.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_MyForm.cpp moc_truncament.cpp
+	-$(DEL_FILE) moc_MyForm.cpp moc_disco.cpp
 moc_MyForm.cpp: ui_widget.h \
+		disco.h \
 		MyForm.h \
 		moc_predefs.h \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/ubupad/Dropbox/uni/tercero/idi/QT/truncament -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MyForm.h -o moc_MyForm.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/ubupad/Dropbox/uni/tercero/idi/QT/qlcdnumber -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MyForm.h -o moc_MyForm.cpp
 
-moc_truncament.cpp: truncament.h \
+moc_disco.cpp: disco.h \
 		moc_predefs.h \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/ubupad/Dropbox/uni/tercero/idi/QT/truncament -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include truncament.h -o moc_truncament.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/ubupad/Dropbox/uni/tercero/idi/QT/qlcdnumber -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include disco.h -o moc_disco.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -372,7 +373,7 @@ compiler_uic_clean:
 	-$(DEL_FILE) ui_widget.h
 ui_widget.h: widget.ui \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/uic \
-		truncament.h
+		disco.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/uic widget.ui -o ui_widget.h
 
 compiler_yacc_decl_make_all:
@@ -386,21 +387,23 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 ####### Compile
 
 MyForm.o: MyForm.cpp MyForm.h \
-		ui_widget.h
+		ui_widget.h \
+		disco.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MyForm.o MyForm.cpp
 
 main.o: main.cpp MyForm.h \
-		ui_widget.h
+		ui_widget.h \
+		disco.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
-truncament.o: truncament.cpp truncament.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o truncament.o truncament.cpp
+disco.o: disco.cpp disco.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o disco.o disco.cpp
 
 moc_MyForm.o: moc_MyForm.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_MyForm.o moc_MyForm.cpp
 
-moc_truncament.o: moc_truncament.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_truncament.o moc_truncament.cpp
+moc_disco.o: moc_disco.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_disco.o moc_disco.cpp
 
 ####### Install
 

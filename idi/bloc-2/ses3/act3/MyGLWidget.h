@@ -10,13 +10,13 @@
 
 class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
+public:
     MyGLWidget (QWidget *parent=0);
     ~MyGLWidget ();
 
-  protected:
+protected:
     // initializeGL - Aqui incluim les inicialitzacions del contexte grafic.
     virtual void initializeGL ( );
     // paintGL - Mètode cridat cada cop que cal refrescar la finestra.
@@ -25,14 +25,14 @@ class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
     // resizeGL - És cridat quan canvia la mida del widget
     virtual void resizeGL (int width, int height);
     // keyPressEvent - Es cridat quan es prem una tecla
-    virtual void keyPressEvent (QKeyEvent *event);
+    //  virtual void keyPressEvent (QKeyEvent *event);
     //mouseMoveEvent - Es creida quan es mou el mouse
-    virtual void mouseMoveEvent(QMouseEvent *e);
+    //  virtual void mouseMoveEvent(QMouseEvent *e);
     //mousePressEvent - Es crida quan es clica el mouse
-    virtual void mousePressEvent(QMouseEvent *e);
+    //  virtual void mousePressEvent(QMouseEvent *e);
 
 
-  private:
+private:
 
     //funcions de càrrega
     void createBuffers ();
@@ -48,6 +48,7 @@ class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
 
     //funcions de transformació
     void modelTransform ();
+    void modelTransform2 ();
     void modelTransformTerra();
     void evitaDeformacions(int w, int h);
 
@@ -57,6 +58,7 @@ class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
     void ini_camera();
     void calculcapsacontainer();
     void calculcapsaminima();
+    void calculesfera();
     void centrarmodel();
 
 
@@ -92,6 +94,7 @@ class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
     float ra;
     float znear;
     float zfar;
+    float left, right, top, bottom;
 
     //Variables View Matrix
     glm::vec3 pos;
@@ -106,12 +109,15 @@ class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
     //Variables de model
     Model m;
 
-    //Caixa minima//
+    //Caixa minima homer//
     glm::vec3 vectorminim; //posició mínima de la capsa contenidora
     glm::vec3 vectormax; //posició màxima de la capsa contenidora
     glm::vec3 centrecaixa; //posició central de la capsa contenidora
+    glm::vec3 basecentrecaixa; //posició central de la base
 
     //esfera contenidora//
+    glm::vec3 vectorminimesfera;
+    glm::vec3 vectormaxesfera;
     float radi;  //radi de la capsa contenidora
 
 };

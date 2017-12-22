@@ -13,6 +13,9 @@ class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
 {
   Q_OBJECT
 
+  public slots:
+    void canviarzoom(int valor);
+
   public:
     MyGLWidget (QWidget *parent=0);
     ~MyGLWidget ();

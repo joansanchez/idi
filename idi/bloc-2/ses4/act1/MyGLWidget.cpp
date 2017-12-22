@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+
 MyGLWidget::MyGLWidget (QWidget* parent) : QOpenGLWidget(parent)
 {
   setFocusPolicy(Qt::ClickFocus);  // per rebre events de teclat
@@ -207,7 +208,6 @@ void MyGLWidget::viewTransform(){
     euler = glm::rotate(euler,theta,glm::vec3(1.0,0.0,0.0));
     euler = glm::rotate(euler,psi,glm::vec3(0.0,1.0,0.0));
     euler = glm::translate(euler, -VRP);
-    std::cout<< "euler: "<<VRP[0]<< " " <<VRP[1]<<" "<<VRP[2]<<std::endl;
     glUniformMatrix4fv(viewLoc,1,GL_FALSE,&euler[0][0]);
 }
 
@@ -245,7 +245,6 @@ void MyGLWidget::calculcapsacontainer(){
     if ((float)m.vertices()[i+2] > vectormax[2]) vectormax[2] = (float)m.vertices()[i+2];
     else if ((float)m.vertices()[i+2] < vectorminim[2])vectorminim[2] = (float)m.vertices()[i+2];
   }
-  std::cout << "("<< vectormax[0] << ", " << vectormax[1] << ", " << vectormax[2] << ")" << std::endl;
 }
 
 void MyGLWidget::calculcapsaminima(){
@@ -258,8 +257,6 @@ void MyGLWidget::calculcapsaminima(){
   float sumaux = xaux + yaux + zaux;
   radi = sqrt(sumaux);
   distancia = 2*radi;
-  std::cout << "radi: "<< radi << std::endl;
-  std::cout << "centre caixa: ("<< centrecaixa[0]<<", " << centrecaixa[1]<<", "<<centrecaixa[2]<<")"<< std::endl;
 
   //radi = dist((vectorminim[0], vectorminim[1], vectorminim[2]),(vectormax[0], vectormax[1], vectormax[2]))/2;
 }
@@ -268,7 +265,6 @@ void MyGLWidget::centrarmodel(){
   glm::mat4 matTG(1.0); //Matriu identidat
   glm::vec3 values = centrecaixa;
   values*= -1.0f;
-  std::cout << "moviment: ("<<values[0]<<", "<< values[1]<< ", "<<values[2]<< ")"<< std::endl;
   matTG = glm::translate (matTG,values);
   glUniformMatrix4fv(transLoc,1,GL_FALSE,&matTG[0][0]);
 }
@@ -374,5 +370,17 @@ void MyGLWidget::keyPressEvent(QKeyEvent* event)
       }
     default: event->ignore(); break;
   }
+  update();
+}
+
+
+/******************************
+Operacions Designer
+*******************************/
+void MyGLWidget::canviarzoom(int valor){
+  makeCurrent();
+  float FOVaux = ((180-valor)/180.0) * M_PI;
+  FOV = FOVaux;
+  projectTransform();
   update();
 }

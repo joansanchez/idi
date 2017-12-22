@@ -13,25 +13,22 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
-#include <QtWidgets/QSpinBox>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "MyGLWidget.h"
-#include "sliderzoom.h"
 
 QT_BEGIN_NAMESPACE
 
 class Ui_MyForm
 {
 public:
+    QHBoxLayout *horizontalLayout;
     MyGLWidget *widget;
-    QWidget *widget1;
     QVBoxLayout *verticalLayout;
-    sliderzoom *horizontalSlider;
-    QSpinBox *spinBox;
     QSpacerItem *verticalSpacer;
     QPushButton *pushButton;
 
@@ -39,39 +36,26 @@ public:
     {
         if (MyForm->objectName().isEmpty())
             MyForm->setObjectName(QStringLiteral("MyForm"));
-        MyForm->resize(819, 498);
+        MyForm->resize(819, 726);
+        horizontalLayout = new QHBoxLayout(MyForm);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         widget = new MyGLWidget(MyForm);
         widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(9, 9, 713, 480));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(widget->sizePolicy().hasHeightForWidth());
         widget->setSizePolicy(sizePolicy);
-        widget1 = new QWidget(MyForm);
-        widget1->setObjectName(QStringLiteral("widget1"));
-        widget1->setGeometry(QRect(730, 10, 86, 471));
-        verticalLayout = new QVBoxLayout(widget1);
+
+        horizontalLayout->addWidget(widget);
+
+        verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
-        horizontalSlider = new sliderzoom(widget1);
-        horizontalSlider->setObjectName(QStringLiteral("horizontalSlider"));
-        horizontalSlider->setMinimum(-10);
-        horizontalSlider->setMaximum(10);
-        horizontalSlider->setOrientation(Qt::Horizontal);
-
-        verticalLayout->addWidget(horizontalSlider);
-
-        spinBox = new QSpinBox(widget1);
-        spinBox->setObjectName(QStringLiteral("spinBox"));
-
-        verticalLayout->addWidget(spinBox);
-
         verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
         verticalLayout->addItem(verticalSpacer);
 
-        pushButton = new QPushButton(widget1);
+        pushButton = new QPushButton(MyForm);
         pushButton->setObjectName(QStringLiteral("pushButton"));
         QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy1.setHorizontalStretch(0);
@@ -82,11 +66,11 @@ public:
         verticalLayout->addWidget(pushButton);
 
 
+        horizontalLayout->addLayout(verticalLayout);
+
+
         retranslateUi(MyForm);
         QObject::connect(pushButton, SIGNAL(clicked()), MyForm, SLOT(close()));
-        QObject::connect(horizontalSlider, SIGNAL(valueChanged(int)), spinBox, SLOT(setValue(int)));
-        QObject::connect(spinBox, SIGNAL(valueChanged(int)), horizontalSlider, SLOT(setValue(int)));
-        QObject::connect(horizontalSlider, SIGNAL(valueChanged(int)), MyForm, SLOT(canviarzoom(int)));
 
         QMetaObject::connectSlotsByName(MyForm);
     } // setupUi

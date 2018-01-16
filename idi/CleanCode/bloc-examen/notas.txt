@@ -1,0 +1,1 @@
+12.- cálculo del radio y del FOV correcto
